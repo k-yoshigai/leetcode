@@ -12,15 +12,14 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
 
-        readPointer = 0
+        last_inserted_at = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[last_inserted_at] = nums[i]
+                last_inserted_at += 1
 
-        for _ in range(0, len(nums)):
-            if nums[readPointer] == 0:
-                for j in range(readPointer + 1, len(nums)):
-                    nums[j - 1] = nums[j]
-                nums[-1] = 0
-            else:
-                readPointer += 1
+        for i in range(last_inserted_at, len(nums)):
+            nums[i] = 0
 
 
 # @lc code=end

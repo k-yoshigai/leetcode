@@ -16,18 +16,30 @@ class Solution:
     # Space Complexity: O(n)
 
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
-        nums = []
-        node = head
-        while node:
-            nums.append(node.val)
-            node = node.next
+        fast = head
+        slow = head
 
-        left, right = 0, len(nums) - 1
-        while left < right:
-            if nums[left] != nums[right]:
+        # Find the middle of the list
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+
+        # Reverse the second half
+        prev = None
+        while slow:
+            tmp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = tmp
+
+        # Check whether the list is palindrome or not
+        left = head
+        right = prev
+        while left and right:
+            if left.val != right.val:
                 return False
-            left += 1
-            right -= 1
+            left = left.next
+            right = right.next
         return True
 
 
